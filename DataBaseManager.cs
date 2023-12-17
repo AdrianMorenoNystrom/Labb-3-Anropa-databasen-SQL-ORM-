@@ -1,5 +1,6 @@
 ﻿using LABB3.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +14,7 @@ namespace LABB3
     public class DataBaseManager
     {
         private SchoolContext dbContext;
-
+        ChoiceManager choices = new ChoiceManager();
         public DataBaseManager()
         {
             dbContext = new SchoolContext();
@@ -274,7 +275,7 @@ namespace LABB3
                 foreach (var student in students)
                 {
 
-                    Console.WriteLine($"{student.FörNamn}{student.EfterNamn}");
+                    Console.WriteLine($"{student.FörNamn} {student.EfterNamn}");
                 }
             }
         }
@@ -306,7 +307,8 @@ namespace LABB3
             Console.Write("Välj befattning(1-8): ");
 
             string position;
-            int positionChoice = int.Parse(Console.ReadLine());
+            int positionChoice = 
+            positionChoice = choices.PositionChoice();
 
             switch (positionChoice)
             {
@@ -346,12 +348,15 @@ namespace LABB3
             Console.WriteLine($"\nLista över alla {position.ToLower()}:");
             foreach (var employee in employees)
             {
-                Console.WriteLine($"{employee.FörNamn}{employee.EfterNamn}");
+                Console.WriteLine($"{employee.FörNamn} {employee.EfterNamn}");
             }
 
         }
 
         //Sätt betyg på elevmetod. 
+        public void GradeStudent()
+        {
+        }
 
     }
 }

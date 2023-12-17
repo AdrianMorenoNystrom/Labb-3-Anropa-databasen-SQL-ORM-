@@ -11,29 +11,16 @@ namespace LABB3
 {
     public class Menu
     {
-
         private SchoolContext dbContext;
         public void ShowMenu()
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Välkommen till navigationsmenyn för skoldatabasen!");
-            Console.ResetColor();
-            Console.WriteLine("1. Hämta en lista på anställda.");
-            Console.WriteLine("2. Hämta en lista på alla elever.");
-            Console.WriteLine("3. Hämta en lista på alla betyg satt den senaste månaden.");
-            Console.WriteLine("4. Hämta en lista på alla kurser i databasen, snittbetyget samt det högsta och lägsta betyget för varje kurs.");
-            Console.WriteLine("5. Lägg till en elev i databasen");
-            Console.WriteLine("6. Lägg till en anställd i databasen");
-            Console.WriteLine("7. Avsluta");
-
-            int choice = GetUserChoice();
-            
-            
-
             DataBaseManager database = new DataBaseManager();
- 
+            ChoiceManager choices = new ChoiceManager();
 
-            while (choice != 7)
+            choices.ShowChoices();
+
+            int choice = choices.GetUserChoice();
+            while (choice != 8)
             {
                 switch (choice)
                 {
@@ -55,6 +42,9 @@ namespace LABB3
                     case 6:
                         database.createPersonal();
                         break;
+                    case 7:
+                        //sätta betyg
+                        break;
                     default:
                         Console.WriteLine("Ogiltigt val. Försök igen.");
                         break;
@@ -66,24 +56,10 @@ namespace LABB3
                 Console.Clear(); // Rensa konsolfönstret för att visa menyn igen
                 ShowMenu();
 
-                choice = GetUserChoice();
+                choice = choices.GetUserChoice();
             }
 
             Console.WriteLine("Programmet avslutas................");
-        }
-
-        private int GetUserChoice()
-        {
-            Console.Write("Gör ditt val (1-7): ");
-            int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice))
-            {
-                Console.WriteLine("Ogiltigt val. Försök igen.");
-                Console.Write("Gör ditt val (1-7): ");
-                
-            }
-            Console.Clear();
-            return choice;
         }
     }
 }
