@@ -20,7 +20,7 @@ namespace LABB3
             choices.ShowChoices();
 
             int choice = choices.GetUserChoice();
-            while (choice != 8)
+            while (choice != 9)
             {
                 switch (choice)
                 {
@@ -31,19 +31,22 @@ namespace LABB3
                         database.GetStudents();
                         break;
                     case 3:
-                        database.GetGrades();
+                        database.GetStudentsInClass();
                         break;
                     case 4:
-                        database.GetGradesAndCourses();
+                        database.GetGrades();
                         break;
                     case 5:
-                        database.createStudent();
+                        database.GetGradesAndCourses();
                         break;
                     case 6:
-                        database.createPersonal();
+                        database.createStudent();
                         break;
                     case 7:
-                        //sätta betyg
+                        database.createPersonal();
+                        break;
+                    case 8:
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Ogiltigt val. Försök igen.");
@@ -58,8 +61,6 @@ namespace LABB3
 
                 choice = choices.GetUserChoice();
             }
-
-            Console.WriteLine("Programmet avslutas................");
         }
     }
 }

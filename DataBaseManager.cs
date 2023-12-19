@@ -353,10 +353,43 @@ namespace LABB3
 
         }
 
-        //Sätt betyg på elevmetod. 
-        public void GradeStudent()
+        //Hämta klasser metod.
+        public List<KlassTabell> GetClasses()
         {
+            return dbContext.KlassTabells.ToList();
         }
+        public void GetStudentsInClass()
+        {
+            // Lista på alla klasser
+            var classes = GetClasses();
+
+            Console.WriteLine("Lista över alla klasser:");
+            foreach (var klass in classes)
+            {
+                Console.WriteLine($"{klass.KlassIdPk}. {klass.KlassNamn}");
+            }
+
+            // Användaren får skriva vilken klass den vill se.
+            Console.Write("Välj klass (ange klassens ID): ");
+            if (!int.TryParse(Console.ReadLine(), out int classId))
+            {
+                Console.WriteLine("Ogiltig inmatning för klassens ID. Ange en siffra.");
+                return;
+            }
+
+            // Hämta elever i den specifika klassen
+            var studentsInClass = dbContext.StudentTabells
+                .Where(student => student.KlassIdFk == classId)
+                .ToList();
+
+            // Visa eleverna i klassen
+            Console.WriteLine($"Elever i klass {classId}:");
+            foreach (var student in studentsInClass)
+            {
+                Console.WriteLine($"{student.FörNamn} {student.EfterNamn}");
+            }
+        }
+       
 
     }
 }
